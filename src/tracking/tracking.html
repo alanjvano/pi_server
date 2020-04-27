@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<meta http-equiv="Content-Type" content = "text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Pi_Tracker</title>
+	<link rel="stylesheet" type="text/css" href="../server_style.css">
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <script type="text/javascript">
+		console.log("test")
+    function refresh() {
+      var req = new XMLHttpRequest();
+      console.log("Grabbing Value");
+      req.onreadystatechange = function () {
+        if (req.readyState == 4 && (req.status == 200 || req.status == 0)) {
+					consol.log("req.responseText")
+          document.getElementById('file_update').innerText = req.responseText;
+        }
+      }
+      req.open("GET", "reload.txt", true);
+      req.send(null);
+    }
+
+    function init() {
+			console.log("initializing")
+      refresh()
+      var int = self.setInterval(function () {
+        refresh()
+      }, 1000);
+    }
+  </script>
+</head>
+
+<body>
+    <h1 class="standard">Pi Tracker</h1>
+    <div class="main">
+      <p>test: </p>
+      <p id="file_update"></p>
+    </div>
+</body>
+</html>
